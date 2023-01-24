@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search by years</title>
+</head>
+<body>
+{% for movie in movies %}
+<p>{{ movie.get('title') }}</p>
+<p>{{ movie.get('release_year') }}</p>
+<hr>
+{% endfor %}
+</body>
+</html>

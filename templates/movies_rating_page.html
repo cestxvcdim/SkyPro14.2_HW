@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rating page</title>
+</head>
+<body>
+{% for movie in movies %}
+<p>{{ movie.get('title') }}</p>
+<p>{{ movie.get('rating') }}</p>
+<p>{{ movie.get('description') }}</p>
+<hr>
+{% endfor %}
+</body>
+</html>
