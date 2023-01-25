@@ -101,8 +101,10 @@ def get_actors(actor1: str, actor2: str):
             for actor_names in row:
                 for i in actor_names.split(', '):
                     dict_[i] = 0
+        for row in result:
+            for actor_names in row:
                 for i in actor_names.split(', '):
-                    dict_[i] += actor_names.split(', ').count(i)
+                    dict_[i] += actor_names.count(i)
         for k, v in dict_.items():
             if k != actor1 and k != actor2:
                 if v > 2:
@@ -122,4 +124,3 @@ def get_movies_by_chars(type_: str, release_year: int, genre: str):
         """
         result = cursor.execute(sqlite_query, (type_, release_year, genre)).fetchall()
         return [row[0] for row in result]
-
