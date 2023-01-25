@@ -84,7 +84,7 @@ def search_by_genre(genre: str) -> list[dict[str, str | int]]:
         return movies
 
 
-def get_actors(actor1: str, actor2: str):
+def get_actors(actor1: str, actor2: str) -> list[str]:
     with sqlite3.connect("database/netflix.db") as connection:
         connection.row_factory = sqlite3.Row
         cursor = connection.cursor()
@@ -113,14 +113,15 @@ def get_actors(actor1: str, actor2: str):
 
 
 
-def get_movies_by_chars(type_: str, release_year: int, genre: str):
+def get_movies_by_chars(type_: str, release_year: int, genre: str) -> list[str]:
     with sqlite3.connect("database/netflix.db") as connection:
         cursor = connection.cursor()
         sqlite_query = """
         SELECT title
         FROM netflix
-        WHERE type LIKE ? AND release_year = ? AND listed_in LIKE ?
+        WHERE type = ? AND release_year = ? AND listed_in LIKE ?
         LIMIT 20
         """
-        result = cursor.execute(sqlite_query, ('%' + type_ + '%', release_year, '%' + genre + '%')).fetchall()
+        result = cursor.execute(sqlite_query, (type_, release_year, '%' + genre + '%')).fetchall()
+        print(result)
         return [row[0] for row in result]
