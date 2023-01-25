@@ -123,5 +123,3 @@ def get_movies_by_chars(type_: str, release_year: int, genre: str):
         result = cursor.execute(sqlite_query, (type_, release_year, genre)).fetchall()
         return [row[0] for row in result]
 
-
-print(get_actors("Jack Black", "Dustin Hoffman"))
