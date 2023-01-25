@@ -7,11 +7,11 @@ def search_by_title(title: str) -> dict[str, str | int]:
         sqlite_query = """
         SELECT title, country, release_year, listed_in, description 
         FROM netflix 
-        WHERE title = ? 
+        WHERE title LIKE ? 
         ORDER BY date_added DESC 
         LIMIT 1
         """
-        result = cursor.execute(sqlite_query, (title,)).fetchone()
+        result = cursor.execute(sqlite_query, ('%' + title + '%',)).fetchone()
         return {
             "title": result[0],
             "country": result[1],
@@ -69,11 +69,11 @@ def search_by_genre(genre: str) -> list[dict[str, str | int]]:
         sqlite_query = """
         SELECT title, description
         FROM netflix
-        WHERE listed_in = ?
+        WHERE listed_in LIKE ?
         ORDER BY release_year DESC
         LIMIT 10
         """
-        result = cursor.execute(sqlite_query, (genre,)).fetchall()
+        result = cursor.execute(sqlite_query, ('%' + genre + '%',)).fetchall()
         movies = []
         for row in result:
             dict_ = {
@@ -119,8 +119,8 @@ def get_movies_by_chars(type_: str, release_year: int, genre: str):
         sqlite_query = """
         SELECT title
         FROM netflix
-        WHERE type = ? AND release_year = ? AND listed_in = ?
+        WHERE type LIKE ? AND release_year = ? AND listed_in LIKE ?
         LIMIT 20
         """
-        result = cursor.execute(sqlite_query, (type_, release_year, genre)).fetchall()
+        result = cursor.execute(sqlite_query, ('%' + type_ + '%', release_year, '%' + genre + '%')).fetchall()
         return [row[0] for row in result]
