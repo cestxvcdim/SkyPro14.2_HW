@@ -25,7 +25,7 @@ def movies_release_year_page():
 
 
 @app.route('/rating/<rating>')
-def rating_children_page(rating):
+def rating_page(rating):
     if rating == 'children':
         rating = ('G', 'TV-G')
     elif rating == 'family':
