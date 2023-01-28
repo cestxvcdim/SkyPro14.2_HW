@@ -96,16 +96,15 @@ def get_actors(actor1: str, actor2: str) -> list[str]:
         """
         result = cursor.execute(sqlite_query, ('%' + actor1 + '%', '%' + actor2 + '%')).fetchall()
         actors = []
-        dict_ = {}
+        actors_dict = {}
         for row in result:
             for actor_names in row:
-                for i in actor_names.split(', '):
-                    dict_[i] = 0
-        for row in result:
-            for actor_names in row:
-                for i in actor_names.split(', '):
-                    dict_[i] += actor_names.count(i)
-        for k, v in dict_.items():
+                for name in actor_names.split(', '):
+                    if name in actors_dict:
+                        actors_dict[name] += 1
+                    else:
+                        actors_dict[name] = 1
+        for k, v in actors_dict.items():
             if k != actor1 and k != actor2:
                 if v > 2:
                     actors.append(k)
