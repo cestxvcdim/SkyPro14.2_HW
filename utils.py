@@ -123,7 +123,6 @@ def get_movies_by_chars(type_: str, release_year: int, genre: str) -> list[dict[
         LIMIT 20
         """
         result = cursor.execute(sqlite_query, (type_, release_year, '%' + genre + '%')).fetchall()
-        print(result)
         movies = []
         for row in result:
             dict_ = {
