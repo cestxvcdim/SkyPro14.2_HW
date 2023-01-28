@@ -50,7 +50,7 @@ def not_found_page(e):
 
 
 @app.errorhandler(500)
-def not_found_page(e):
+def internal_server_page(e):
     return '<h1>500 Error</h1>'
 
 if __name__ == '__main__':
